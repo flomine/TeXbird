@@ -2,7 +2,7 @@
 
 *LaTeX equations as images, right inside your Thunderbird emails — rendered entirely on your machine.*
 
-A Manifest V3 MailExtension for **Thunderbird 128+** that inserts LaTeX equations as
+A Manifest V3 MailExtension for **Thunderbird 153+** that inserts LaTeX equations as
 **inline PNG images** into your emails. Rendering is **100% local** via a bundled
 copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
@@ -78,6 +78,12 @@ zip -r -X ../texbird.xpi . -x '.git/*' '*.xpi' >/dev/null
 
 Run `make vendor` to download and checksum-verify the pinned MathJax bundle;
 see `THIRD-PARTY.md` for its provenance and SHA-256.
+
+Run `make lint` to validate the extension with pinned `web-ext` inside a
+restricted Docker container. The image is built from a digest-pinned Node base
+and a committed npm lockfile; lint runs without network access, as an
+unprivileged user, with the repository mounted read-only. Docker is required.
+Run `make lint-image` to rebuild the cached lint image.
 
 ## License
 

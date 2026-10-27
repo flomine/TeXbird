@@ -2,15 +2,19 @@
 #
 #   make            # build texbird.xpi
 #   make clean      # remove it
-#   make lint       # run web-ext lint if available
+#   make lint       # run pinned web-ext in a restricted Node container
+#   make lint-image # rebuild the pinned web-ext container
 #   make vendor     # fetch and verify the bundled MathJax file
 
 XPI      := texbird.xpi
 EXCLUDES := -x '.git/*' -x '*.xpi' -x 'Makefile' -x '.gitignore' -x 'web-ext-artifacts/*'
 MATHJAX_VERSION := 3.2.2
 MATHJAX_SHA256  := a4354ff94fd868aea0cc6eaaa79a57fda0588646fc46ee3700a349ee0a11cbe6
+NODE_IMAGE ?= node:22-alpine
+LINT_IMAGE ?= texbird-web-ext-lint:10.8.0
+LINT_USER ?= $(shell id -u):$(shell id -g)
 
-.PHONY: build clean lint vendor
+.PHONY: build clean lint lint-image vendor
 .DEFAULT_GOAL := build
 
 build:
@@ -24,10 +28,19 @@ clean:
 	@rm -f $(XPI)
 	@echo "Removed $(XPI)"
 
-lint:
-	@command -v web-ext >/dev/null 2>&1 \
-		&& web-ext lint \
-		|| echo "web-ext not installed — run: npm install -g web-ext"
+lint: lint-image
+	@docker run --rm --network=none --read-only \
+		--cap-drop=ALL --security-opt=no-new-privileges \
+		--pids-limit=128 --memory=2g --cpus=2 \
+		--tmpfs /tmp:rw,noexec,nosuid,size=64m \
+		--user "$(LINT_USER)" -e HOME=/tmp \
+		--mount type=bind,src="$(CURDIR)",dst=/workspace,readonly \
+		-w /workspace $(LINT_IMAGE) lint
+
+lint-image:
+	@command -v docker >/dev/null 2>&1 \
+		|| { echo "ERROR: Docker is required to run make lint" >&2; exit 1; }
+	@docker build --file tools/lint/Dockerfile --tag $(LINT_IMAGE) tools/lint
 
 vendor:
 	@set -eu; \

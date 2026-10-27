@@ -1,0 +1,7 @@
+{
+  "name": "texbird-web-ext-lint",
+  "private": true,
+  "devDependencies": {
+    "web-ext": "10.8.0"
+  }
+}
