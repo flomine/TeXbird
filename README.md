@@ -13,7 +13,8 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
 ## Features
 
-- **Display** (block) or **inline** math.
+- **Display** (block) or **inline** math, inline equations aligned on the
+  text baseline.
 - Adjustable color, size and sharpness; live preview.
 - High-resolution PNG inserted **at the cursor** in the message body.
 - Select a TeXbird equation, then open the TeXbird popup to edit its LaTeX
@@ -65,11 +66,13 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
 - ~~Edit a TeXbird equation in place from the popup.~~
 - ~~Define custom TeX macros and save them locally between sessions.~~
-- Precise baseline alignment for inline mode.
+- ~~Precise baseline alignment for inline mode.~~
 - Context menu + global keyboard shortcut.
 - Options page for default mode, color, size, and resolution.
 - Named macro profiles with JSON import and export.
 - ~~Validate custom macro definitions and report errors before rendering.~~
+- Convert LaTeX typed in the message body (`$…$`, `$$…$$`, `\(…\)`, `\[…\]`)
+  into images, with a confirmation list and a way to turn them back into text.
 - Quick insertion of recent equations and reusable templates.
 - Export rendered equations as PNG or SVG files.
 - Signed release on addons.thunderbird.net.

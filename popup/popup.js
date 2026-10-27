@@ -356,9 +356,18 @@ async function insertIntoCompose(data) {
   }
 }
 
+// En ligne, MathJax pose la ligne de base avec vertical-align en ex (négatif =
+// profondeur sous la ligne de base) ; on le convertit en px pour l'image.
+function inlineVerticalAlign(svg, rect) {
+  const offsetEx = parseFloat(svg.style.verticalAlign);
+  const heightEx = parseFloat(svg.getAttribute("height"));
+  if (!Number.isFinite(offsetEx) || !(heightEx > 0)) return "middle";
+  return Math.round((offsetEx * rect.height) / heightEx) + "px";
+}
+
 async function doInsert() {
   if ($("insert").disabled) return;
-  const { latex, color, scale } = opts();
+  const { latex, display, color, scale } = opts();
   const svg = $("preview").querySelector("svg");
   if (!svg) return;
 
@@ -384,7 +393,7 @@ async function doInsert() {
     height: cssH,
     alt: latex,
     latex,
-    vAlign: "middle",
+    vAlign: display ? "middle" : inlineVerticalAlign(svg, rect),
   };
 
   const ok = await insertIntoCompose(data);
