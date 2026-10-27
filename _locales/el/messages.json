@@ -15,6 +15,7 @@
   "insertHint": { "message": "Ctrl+Enter για εισαγωγή" },
   "replaceHint": { "message": "Ctrl+Enter για αντικατάσταση" },
   "githubProjectLink": { "message": "Έργο στο GitHub" },
+  "versionLabel": { "message": "Έκδοση $1" },
   "insertButton": { "message": "Εισαγωγή" },
   "replaceButton": { "message": "Αντικατάσταση" },
   "mathjaxLoading": { "message": "Φόρτωση MathJax…" },

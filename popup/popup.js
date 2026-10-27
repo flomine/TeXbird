@@ -19,6 +19,10 @@ function localize() {
   for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
     el.setAttribute("aria-label", message(el.dataset.i18nAriaLabel));
   }
+  $("version").textContent = message(
+    "versionLabel",
+    messenger.runtime.getManifest().version
+  );
   for (const swatch of document.querySelectorAll(".color-swatch")) {
     swatch.setAttribute("aria-label", message("colorSwatch", swatch.dataset.color));
   }

@@ -15,6 +15,7 @@
   "insertHint": { "message": "Ctrl+Entrée pour insérer" },
   "replaceHint": { "message": "Ctrl+Entrée pour remplacer" },
   "githubProjectLink": { "message": "Projet sur GitHub" },
+  "versionLabel": { "message": "Version $1" },
   "insertButton": { "message": "Insérer" },
   "replaceButton": { "message": "Remplacer" },
   "mathjaxLoading": { "message": "Chargement de MathJax…" },

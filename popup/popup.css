@@ -152,11 +152,15 @@ select:focus-visible {
 .popup-footer {
   border-top: 1px solid var(--border);
   padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
   text-align: center;
   font-size: 11px;
 }
 .popup-footer a { color: var(--muted); }
 .popup-footer a:hover { color: var(--fg); }
+.version { color: var(--muted); }
 
 button.primary {
   padding: 8px 18px;
