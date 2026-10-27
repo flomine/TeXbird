@@ -17,6 +17,8 @@
   "saveMacros": { "message": "Makros speichern" },
   "macrosSaved": { "message": "Makros auf diesem Gerät gespeichert." },
   "macroSaveFailed": { "message": "Makros konnten nicht gespeichert werden: $1" },
+  "macroInvalid": { "message": "Zeile $1: $2" },
+  "macroUnexpectedOutput": { "message": "nur Definitionen sind erlaubt, diese Zeile erzeugt sichtbaren Inhalt" },
   "insertHint": { "message": "Mit Strg+Eingabe einfügen" },
   "replaceHint": { "message": "Mit Strg+Eingabe ersetzen" },
   "githubProjectLink": { "message": "TeXbird" },

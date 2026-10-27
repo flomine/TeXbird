@@ -6,6 +6,7 @@ const $ = (id) => document.getElementById(id);
 let mjReady = false;
 let previewTimer = null;
 let editingEquation = false;
+let macroCheckTimer = null;
 let customMacros = "";
 
 function message(key, ...substitutions) {
@@ -67,20 +68,113 @@ async function loadCustomMacros() {
     customMacros = typeof stored.customMacros === "string" ? stored.customMacros : "";
     $("macro-definitions").value = customMacros;
   } catch (e) {
-    $("macro-status").textContent = message("macroSaveFailed", e);
+    setMacroStatus(message("macroSaveFailed", e), true);
   }
 }
 
+function setMacroStatus(msg, isError = false) {
+  const el = $("macro-status");
+  el.textContent = msg || "";
+  el.classList.toggle("error", isError);
+}
+
 async function saveCustomMacros() {
-  const updatedMacros = $("macro-definitions").value.trim();
+  const definitions = $("macro-definitions").value;
+  try {
+    await ensureMathJax();
+  } catch (e) {
+    setMacroStatus(message("macroSaveFailed", e), true);
+    return;
+  }
+  if (!reportMacroErrors(definitions)) return;
+  const updatedMacros = definitions.trim();
   try {
     await messenger.storage.local.set({ customMacros: updatedMacros });
     customMacros = updatedMacros;
     await updatePreview();
-    $("macro-status").textContent = message("macrosSaved");
+    setMacroStatus(message("macrosSaved"));
   } catch (e) {
-    $("macro-status").textContent = message("macroSaveFailed", e);
+    setMacroStatus(message("macroSaveFailed", e), true);
   }
+}
+
+// --- Validation des macros -----------------------------------------------
+
+// MathJax 3 garde les \newcommand, \def, etc. d'un rendu à l'autre et
+// texReset() ne les efface pas : on vide ces tables avant chaque rendu.
+function clearDefinedMacros() {
+  const { handlers } = MathJax.startup.document.inputJax[0].parseOptions;
+  for (const name of ["new-Command", "new-Delimiter", "new-Environment"]) {
+    handlers.retrieve(name)?.map.clear();
+  }
+}
+
+// Rend `source` seul et renvoie "" s'il ne contient que des définitions
+// (aucune sortie visible), sinon un message d'erreur.
+function definitionError(source) {
+  clearDefinedMacros();
+  MathJax.texReset();
+  let mml;
+  try {
+    mml = MathJax.tex2mml(source);
+  } catch (e) {
+    return e.message || String(e);
+  }
+  const math = new DOMParser().parseFromString(mml, "application/xml").documentElement;
+  const merror = math.getElementsByTagName("merror")[0];
+  if (merror) return merror.getAttribute("data-mjx-error") || merror.textContent;
+  const hasOutput =
+    math.textContent.trim() !== "" ||
+    [...math.getElementsByTagName("*")].some((el) => el.localName !== "mrow");
+  return hasOutput ? message("macroUnexpectedOutput") : "";
+}
+
+function braceDepth(line) {
+  let depth = 0;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === "\\") i++;
+    else if (ch === "%") break;
+    else if (ch === "{") depth++;
+    else if (ch === "}") depth--;
+  }
+  return depth;
+}
+
+// Renvoie null si tout est valide, sinon { line, error } avec la ligne où
+// commence la définition fautive. Une définition peut s'étendre sur plusieurs
+// lignes et utiliser les précédentes : on valide des préfixes cumulés, coupés
+// là où toutes les accolades sont refermées.
+function validateMacros(text) {
+  const lines = text.split(/\r?\n/);
+  let depth = 0;
+  let validLines = 0;
+  for (let i = 0; i < lines.length; i++) {
+    depth += braceDepth(lines[i]);
+    if (depth > 0) continue;
+    const error = definitionError(lines.slice(0, i + 1).join("\n"));
+    if (error) return { line: validLines + 1, error };
+    validLines = i + 1;
+    depth = 0;
+  }
+  if (validLines === lines.length) return null;
+  const error = definitionError(text);
+  return error ? { line: validLines + 1, error } : null;
+}
+
+// Affiche l'éventuelle erreur et renvoie true si les définitions sont valides.
+function reportMacroErrors(text) {
+  const invalid = validateMacros(text);
+  $("macro-definitions").setAttribute("aria-invalid", String(Boolean(invalid)));
+  if (invalid) setMacroStatus(message("macroInvalid", invalid.line, invalid.error), true);
+  return !invalid;
+}
+
+function scheduleMacroCheck() {
+  clearTimeout(macroCheckTimer);
+  macroCheckTimer = setTimeout(() => {
+    if (mjReady && reportMacroErrors($("macro-definitions").value)) setMacroStatus("");
+  }, 300);
 }
 
 function applySvgColor(svg, color) {
@@ -118,9 +212,10 @@ async function updatePreview() {
 
   let container;
   try {
+    clearDefinedMacros();
+    if (customMacros) MathJax.tex2mml(customMacros);
     MathJax.texReset();
-    const source = customMacros ? `${customMacros}\n${latex}` : latex;
-    container = MathJax.tex2svg(source, { display });
+    container = MathJax.tex2svg(latex, { display });
   } catch (e) {
     setStatus(message("renderError", e));
     return;
@@ -304,6 +399,7 @@ async function doInsert() {
 // --- Écouteurs ------------------------------------------------------------
 
 $("src").addEventListener("input", schedulePreview);
+$("macro-definitions").addEventListener("input", scheduleMacroCheck);
 $("save-macros").addEventListener("click", saveCustomMacros);
 $("color").addEventListener("input", () => {
   updateColorSwatches();
@@ -340,6 +436,8 @@ document.addEventListener("keydown", (e) => {
   try {
     await ensureMathJax();
     setStatus("");
+    // Macros enregistrées par une version antérieure sans validation.
+    if (customMacros && !reportMacroErrors(customMacros)) customMacros = "";
   } catch (e) {
     setStatus(message("mathjaxStartError", e));
   }

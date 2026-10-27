@@ -18,7 +18,8 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - High-resolution PNG inserted **at the cursor** in the message body.
 - Select a TeXbird equation, then open the TeXbird popup to edit its LaTeX
   source and replace it in place.
-- Define custom TeX macros and save them locally between sessions.
+- Define custom TeX macros and save them locally between sessions; invalid
+  definitions are reported with their line before saving.
 - LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
 - TeX packages available offline: `ams`, `color`, `cancel`, `physics`,
   `boldsymbol`, `mhchem`, `braket`.
@@ -68,7 +69,7 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - Context menu + global keyboard shortcut.
 - Options page for default mode, color, size, and resolution.
 - Named macro profiles with JSON import and export.
-- Validate custom macro definitions and report errors before rendering.
+- ~~Validate custom macro definitions and report errors before rendering.~~
 - Quick insertion of recent equations and reusable templates.
 - Export rendered equations as PNG or SVG files.
 - Signed release on addons.thunderbird.net.

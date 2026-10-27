@@ -17,6 +17,8 @@
   "saveMacros": { "message": "Αποθήκευση μακροεντολών" },
   "macrosSaved": { "message": "Οι μακροεντολές αποθηκεύτηκαν σε αυτήν τη συσκευή." },
   "macroSaveFailed": { "message": "Δεν ήταν δυνατή η αποθήκευση των μακροεντολών: $1" },
+  "macroInvalid": { "message": "Γραμμή $1: $2" },
+  "macroUnexpectedOutput": { "message": "επιτρέπονται μόνο ορισμοί, αυτή η γραμμή εμφανίζει περιεχόμενο" },
   "insertHint": { "message": "Ctrl+Enter για εισαγωγή" },
   "replaceHint": { "message": "Ctrl+Enter για αντικατάσταση" },
   "githubProjectLink": { "message": "TeXbird" },

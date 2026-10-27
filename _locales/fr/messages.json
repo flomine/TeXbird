@@ -17,6 +17,8 @@
   "saveMacros": { "message": "Enregistrer les macros" },
   "macrosSaved": { "message": "Macros enregistrées sur cet appareil." },
   "macroSaveFailed": { "message": "Impossible d’enregistrer les macros : $1" },
+  "macroInvalid": { "message": "Ligne $1 : $2" },
+  "macroUnexpectedOutput": { "message": "seules des définitions sont permises, cette ligne affiche du contenu" },
   "insertHint": { "message": "Ctrl+Entrée pour insérer" },
   "replaceHint": { "message": "Ctrl+Entrée pour remplacer" },
   "githubProjectLink": { "message": "TeXbird" },
