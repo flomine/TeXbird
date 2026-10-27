@@ -1,0 +1,16 @@
+# Build artifacts
+*.xpi
+*.zip
+web-ext-artifacts/
+
+# Dependencies / packaging scratch
+node_modules/
+*.tgz
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*~
+.*.swp
+.idea/
+.vscode/

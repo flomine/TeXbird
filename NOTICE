@@ -1,0 +1,25 @@
+TeXbird
+Copyright (C) 2026 Franck (flomine)
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See the LICENSE file for the full text.
+
+------------------------------------------------------------------------------
+Third-party components
+------------------------------------------------------------------------------
+
+This extension bundles MathJax, used to render LaTeX to SVG entirely locally.
+
+  MathJax (https://www.mathjax.org/)
+  Copyright 2009-2024 The MathJax Consortium
+  Licensed under the Apache License, Version 2.0.
+  Bundled file: mathjax/tex-svg.js  (component "tex-svg-full", v3.2.2)
+  Full license text: mathjax/LICENSE
+
+The Apache License 2.0 is compatible with GPLv3: Apache-2.0 code may be
+combined into a GPLv3 work. MathJax retains its own copyright and license;
+only the TeXbird-authored files are licensed under the GPLv3.
+
+See THIRD-PARTY.md for details on how the bundled copy was produced.

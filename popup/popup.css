@@ -1,0 +1,150 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* TeXbird — Copyright (C) 2026 Franck (flomine) */
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --border: #d9dce1;
+  --field-bg: #f6f7f9;
+  --accent: #2e7db0;
+  --accent-fg: #ffffff;
+  --preview-bg: #ffffff;
+  --danger: #b4232a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f2126;
+    --fg: #e8e9ec;
+    --muted: #9aa0ab;
+    --border: #3a3d44;
+    --field-bg: #2a2d33;
+    --accent: #4ea3d8;
+    --accent-fg: #10161b;
+    --preview-bg: #f4f5f7; /* aperçu sur fond clair : les équations noires restent lisibles */
+    --danger: #ff7a80;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.wrap {
+  width: 430px;
+  max-width: 100%;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-label {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+textarea#src {
+  width: 100%;
+  resize: vertical;
+  min-height: 62px;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+textarea#src:focus,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.preview {
+  min-height: 58px;
+  max-height: 190px;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--preview-bg);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls { display: flex; flex-direction: column; gap: 8px; }
+.row { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+
+.segmented { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.segmented label { position: relative; }
+.segmented input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.segmented span {
+  display: block;
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.segmented input:checked + span {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.inline-field { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+.inline-field input[type="number"] {
+  width: 54px;
+  padding: 5px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+}
+.inline-field select {
+  padding: 5px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+}
+input[type="color"] {
+  width: 34px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  cursor: pointer;
+}
+
+.status { min-height: 16px; font-size: 12px; color: var(--danger); }
+.status.info { color: var(--muted); }
+
+.actions { display: flex; align-items: center; justify-content: space-between; }
+.hint { font-size: 11px; color: var(--muted); }
+
+button.primary {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+button.primary:disabled { opacity: 0.5; cursor: default; }
+
+/* MathJax : laisse l'équation s'afficher à la taille définie */
+mjx-container { margin: 0 !important; }

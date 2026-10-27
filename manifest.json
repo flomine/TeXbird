@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "TeXbird",
+  "version": "0.1.0",
+  "description": "Insert LaTeX equations as inline images in your emails. Fully local rendering via MathJax — no LaTeX install, no external process.",
+  "author": "Franck (flomine)",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "texbird@flomine",
+      "strict_min_version": "128.0"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "64": "icons/icon-64.png"
+  },
+  "permissions": ["compose", "scripting", "tabs", "storage"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "compose_action": {
+    "default_title": "TeXbird — insert a LaTeX equation",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "19": "icons/icon-19.png",
+      "32": "icons/icon-32.png",
+      "38": "icons/icon-38.png"
+    }
+  }
+}

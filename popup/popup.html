@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- TeXbird — Copyright (C) 2026 Franck (flomine) -->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="wrap">
+    <label class="field-label" for="src">Équation LaTeX</label>
+    <textarea id="src" spellcheck="false" rows="3"
+      placeholder="\frac{\partial u}{\partial t} + (u\cdot\nabla)u = -\frac{1}{\rho}\nabla p + \nu\nabla^2 u"></textarea>
+
+    <div id="preview" class="preview" aria-live="polite"></div>
+
+    <div class="controls">
+      <div class="row">
+        <div class="segmented" role="radiogroup" aria-label="Type">
+          <label><input type="radio" name="mode" value="display" checked><span>Bloc</span></label>
+          <label><input type="radio" name="mode" value="inline"><span>En ligne</span></label>
+        </div>
+        <label class="inline-field">Couleur
+          <input type="color" id="color" value="#000000">
+        </label>
+      </div>
+      <div class="row">
+        <label class="inline-field">Taille
+          <input type="number" id="size" min="8" max="72" step="1" value="16"> px
+        </label>
+        <label class="inline-field">Netteté
+          <select id="scale">
+            <option value="2">×2</option>
+            <option value="3" selected>×3</option>
+            <option value="4">×4</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="actions">
+      <span class="hint">Ctrl+Entrée pour insérer</span>
+      <button id="insert" class="primary" disabled>Insérer</button>
+    </div>
+  </div>
+
+  <script src="mj-config.js"></script>
+  <script src="../mathjax/tex-svg.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
