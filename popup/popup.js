@@ -6,6 +6,20 @@ const $ = (id) => document.getElementById(id);
 let mjReady = false;
 let previewTimer = null;
 
+function message(key, ...substitutions) {
+  return messenger.i18n.getMessage(key, substitutions.map(String));
+}
+
+function localize() {
+  document.documentElement.lang = messenger.i18n.getUILanguage() || "en";
+  for (const el of document.querySelectorAll("[data-i18n]")) {
+    el.textContent = message(el.dataset.i18n);
+  }
+  for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
+    el.setAttribute("aria-label", message(el.dataset.i18nAriaLabel));
+  }
+}
+
 function opts() {
   return {
     latex: $("src").value,
@@ -41,7 +55,7 @@ async function updatePreview() {
   try {
     await ensureMathJax();
   } catch (e) {
-    setStatus("MathJax n'a pas pu démarrer : " + e);
+    setStatus(message("mathjaxStartError", e));
     return;
   }
 
@@ -50,7 +64,7 @@ async function updatePreview() {
     MathJax.texReset();
     container = MathJax.tex2svg(latex, { display });
   } catch (e) {
-    setStatus("Erreur de rendu : " + e);
+    setStatus(message("renderError", e));
     return;
   }
   container.style.fontSize = sizePx + "px";
@@ -59,13 +73,13 @@ async function updatePreview() {
 
   const svg = container.querySelector("svg");
   if (!svg) {
-    setStatus("Rien à afficher.");
+    setStatus(message("noPreview"));
     return;
   }
   // MathJax rend les erreurs de syntaxe en rouge dans le SVG ; on laisse
   // l'utilisateur les voir, mais on prévient et on autorise quand même l'insertion.
   if (svg.querySelector('[data-mml-node="merror"]')) {
-    setStatus("Syntaxe LaTeX douteuse — vérifie l'aperçu.", "info");
+    setStatus(message("syntaxWarning"), "info");
   }
   $("insert").disabled = false;
 }
@@ -81,7 +95,7 @@ function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("image SVG illisible"));
+    img.onerror = () => reject(new Error(message("svgImageUnreadable")));
     img.src = src;
   });
 }
@@ -145,7 +159,7 @@ async function insertIntoCompose(data) {
   try {
     const details = await messenger.compose.getComposeDetails(tab.id);
     if (details.isPlainText) {
-      setStatus("Message en texte brut : passe le message en HTML pour insérer une image.");
+      setStatus(message("plainTextMessage"));
       return false;
     }
     const imgHtml =
@@ -177,13 +191,13 @@ async function doInsert() {
   const cssH = Math.max(1, Math.round(rect.height));
 
   $("insert").disabled = true;
-  setStatus("Génération de l'image…", "info");
+  setStatus(message("generatingImage"), "info");
 
   let png;
   try {
     png = await svgToPng(svg, color, scale, cssW, cssH);
   } catch (e) {
-    setStatus("Échec de la génération : " + e);
+    setStatus(message("generationFailure", e));
     $("insert").disabled = false;
     return;
   }
@@ -201,7 +215,7 @@ async function doInsert() {
   if (ok) {
     window.close();
   } else {
-    setStatus("Impossible d'insérer dans le message.");
+    setStatus(message("insertFailure"));
     $("insert").disabled = false;
   }
 }
@@ -224,13 +238,14 @@ document.addEventListener("keydown", (e) => {
 
 // Démarrage (le script est en fin de body : le DOM est prêt).
 (async () => {
+  localize();
   $("src").focus();
-  setStatus("Chargement de MathJax…", "info");
+  setStatus(message("mathjaxLoading"), "info");
   try {
     await ensureMathJax();
     setStatus("");
   } catch (e) {
-    setStatus("MathJax n'a pas pu démarrer : " + e);
+    setStatus(message("mathjaxStartError", e));
   }
   updatePreview();
 })();

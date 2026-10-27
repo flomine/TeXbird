@@ -1,0 +1,23 @@
+{
+  "extensionDescription": { "message": "Fügen Sie LaTeX-Gleichungen als lokal mit MathJax gerenderte Bilder in Ihre E-Mails ein." },
+  "composeActionTitle": { "message": "TeXbird — LaTeX-Gleichung einfügen" },
+  "latexEquation": { "message": "LaTeX-Gleichung" },
+  "typeLabel": { "message": "Typ" },
+  "displayMode": { "message": "Abgesetzt" },
+  "inlineMode": { "message": "Im Text" },
+  "color": { "message": "Farbe" },
+  "size": { "message": "Größe" },
+  "resolution": { "message": "Auflösung" },
+  "insertHint": { "message": "Mit Strg+Eingabe einfügen" },
+  "insertButton": { "message": "Einfügen" },
+  "mathjaxLoading": { "message": "MathJax wird geladen…" },
+  "mathjaxStartError": { "message": "MathJax konnte nicht gestartet werden: $1" },
+  "renderError": { "message": "Fehler beim Rendern: $1" },
+  "noPreview": { "message": "Nichts anzuzeigen." },
+  "syntaxWarning": { "message": "Die LaTeX-Syntax ist möglicherweise fehlerhaft. Prüfen Sie die Vorschau." },
+  "plainTextMessage": { "message": "Diese Nachricht ist im Nur-Text-Format. Wechseln Sie zu HTML, um ein Bild einzufügen." },
+  "svgImageUnreadable": { "message": "SVG-Bild konnte nicht gelesen werden" },
+  "generatingImage": { "message": "Bild wird erstellt…" },
+  "generationFailure": { "message": "Bild konnte nicht erstellt werden: $1" },
+  "insertFailure": { "message": "Einfügen in die Nachricht nicht möglich." }
+}

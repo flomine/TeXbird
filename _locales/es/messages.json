@@ -1,0 +1,23 @@
+{
+  "extensionDescription": { "message": "Inserta ecuaciones LaTeX en tus correos como imágenes renderizadas localmente con MathJax." },
+  "composeActionTitle": { "message": "TeXbird — insertar una ecuación LaTeX" },
+  "latexEquation": { "message": "Ecuación LaTeX" },
+  "typeLabel": { "message": "Tipo" },
+  "displayMode": { "message": "Bloque" },
+  "inlineMode": { "message": "En línea" },
+  "color": { "message": "Color" },
+  "size": { "message": "Tamaño" },
+  "resolution": { "message": "Resolución" },
+  "insertHint": { "message": "Ctrl+Intro para insertar" },
+  "insertButton": { "message": "Insertar" },
+  "mathjaxLoading": { "message": "Cargando MathJax…" },
+  "mathjaxStartError": { "message": "No se pudo iniciar MathJax: $1" },
+  "renderError": { "message": "Error de renderizado: $1" },
+  "noPreview": { "message": "No hay nada que mostrar." },
+  "syntaxWarning": { "message": "La sintaxis LaTeX podría no ser válida. Comprueba la vista previa." },
+  "plainTextMessage": { "message": "Este mensaje es de texto sin formato. Cámbialo a HTML para insertar una imagen." },
+  "svgImageUnreadable": { "message": "No se pudo leer la imagen SVG" },
+  "generatingImage": { "message": "Generando imagen…" },
+  "generationFailure": { "message": "No se pudo generar la imagen: $1" },
+  "insertFailure": { "message": "No se pudo insertar en el mensaje." }
+}

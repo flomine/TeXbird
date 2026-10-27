@@ -1,0 +1,23 @@
+{
+  "extensionDescription": { "message": "Εισαγωγή εξισώσεων LaTeX στα email σας ως εικόνες, με τοπική απόδοση μέσω MathJax." },
+  "composeActionTitle": { "message": "TeXbird — εισαγωγή εξίσωσης LaTeX" },
+  "latexEquation": { "message": "Εξίσωση LaTeX" },
+  "typeLabel": { "message": "Τύπος" },
+  "displayMode": { "message": "Σε μπλοκ" },
+  "inlineMode": { "message": "Εντός γραμμής" },
+  "color": { "message": "Χρώμα" },
+  "size": { "message": "Μέγεθος" },
+  "resolution": { "message": "Ανάλυση" },
+  "insertHint": { "message": "Ctrl+Enter για εισαγωγή" },
+  "insertButton": { "message": "Εισαγωγή" },
+  "mathjaxLoading": { "message": "Φόρτωση MathJax…" },
+  "mathjaxStartError": { "message": "Δεν ήταν δυνατή η εκκίνηση του MathJax: $1" },
+  "renderError": { "message": "Σφάλμα απόδοσης: $1" },
+  "noPreview": { "message": "Δεν υπάρχει κάτι για εμφάνιση." },
+  "syntaxWarning": { "message": "Η σύνταξη LaTeX ενδέχεται να μην είναι έγκυρη. Ελέγξτε την προεπισκόπηση." },
+  "plainTextMessage": { "message": "Το μήνυμα είναι απλού κειμένου. Αλλάξτε το σε HTML για να εισαγάγετε εικόνα." },
+  "svgImageUnreadable": { "message": "Δεν ήταν δυνατή η ανάγνωση της εικόνας SVG" },
+  "generatingImage": { "message": "Δημιουργία εικόνας…" },
+  "generationFailure": { "message": "Αποτυχία δημιουργίας εικόνας: $1" },
+  "insertFailure": { "message": "Δεν ήταν δυνατή η εισαγωγή στο μήνυμα." }
+}
