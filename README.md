@@ -62,9 +62,15 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
 ## Roadmap
 
+- ~~Edit a TeXbird equation in place from the popup.~~
+- ~~Define custom TeX macros and save them locally between sessions.~~
 - Precise baseline alignment for inline mode.
 - Context menu + global keyboard shortcut.
-- Options page (defaults, custom macro preamble).
+- Options page for default mode, color, size, and resolution.
+- Named macro profiles with JSON import and export.
+- Validate custom macro definitions and report errors before rendering.
+- Quick insertion of recent equations and reusable templates.
+- Export rendered equations as PNG or SVG files.
 - Signed release on addons.thunderbird.net.
 
 ## Development
