@@ -53,6 +53,17 @@
       </div>
     </div>
 
+    <details class="macro-settings">
+      <summary data-i18n="customMacros">Custom macros</summary>
+      <label for="macro-definitions" data-i18n="macroDefinitions">TeX definitions</label>
+      <textarea id="macro-definitions" rows="3" spellcheck="false"
+        placeholder="\newcommand{\RR}{\mathbb{R}}&#10;\newcommand{\abs}[1]{\left|#1\right|}"></textarea>
+      <div class="macro-actions">
+        <span id="macro-status" class="macro-status" aria-live="polite"></span>
+        <button id="save-macros" type="button" data-i18n="saveMacros">Save macros</button>
+      </div>
+    </details>
+
     <div id="status" class="status"></div>
 
     <div class="actions">

@@ -18,6 +18,7 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - High-resolution PNG inserted **at the cursor** in the message body.
 - Select a TeXbird equation, then open the TeXbird popup to edit its LaTeX
   source and replace it in place.
+- Define custom TeX macros and save them locally between sessions.
 - LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
 - TeX packages available offline: `ams`, `color`, `cancel`, `physics`,
   `boldsymbol`, `mhchem`, `braket`.

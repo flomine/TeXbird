@@ -6,6 +6,7 @@ const $ = (id) => document.getElementById(id);
 let mjReady = false;
 let previewTimer = null;
 let editingEquation = false;
+let customMacros = "";
 
 function message(key, ...substitutions) {
   return messenger.i18n.getMessage(key, substitutions.map(String));
@@ -60,6 +61,28 @@ async function ensureMathJax() {
   mjReady = true;
 }
 
+async function loadCustomMacros() {
+  try {
+    const stored = await messenger.storage.local.get("customMacros");
+    customMacros = typeof stored.customMacros === "string" ? stored.customMacros : "";
+    $("macro-definitions").value = customMacros;
+  } catch (e) {
+    $("macro-status").textContent = message("macroSaveFailed", e);
+  }
+}
+
+async function saveCustomMacros() {
+  const updatedMacros = $("macro-definitions").value.trim();
+  try {
+    await messenger.storage.local.set({ customMacros: updatedMacros });
+    customMacros = updatedMacros;
+    await updatePreview();
+    $("macro-status").textContent = message("macrosSaved");
+  } catch (e) {
+    $("macro-status").textContent = message("macroSaveFailed", e);
+  }
+}
+
 function applySvgColor(svg, color) {
   const elements = [svg, ...svg.querySelectorAll("*")];
   for (const element of elements) {
@@ -96,7 +119,8 @@ async function updatePreview() {
   let container;
   try {
     MathJax.texReset();
-    container = MathJax.tex2svg(latex, { display });
+    const source = customMacros ? `${customMacros}\n${latex}` : latex;
+    container = MathJax.tex2svg(source, { display });
   } catch (e) {
     setStatus(message("renderError", e));
     return;
@@ -280,6 +304,7 @@ async function doInsert() {
 // --- Écouteurs ------------------------------------------------------------
 
 $("src").addEventListener("input", schedulePreview);
+$("save-macros").addEventListener("click", saveCustomMacros);
 $("color").addEventListener("input", () => {
   updateColorSwatches();
   updatePreview();
@@ -308,6 +333,7 @@ document.addEventListener("keydown", (e) => {
 (async () => {
   localize();
   updateColorSwatches();
+  await loadCustomMacros();
   await loadSelectedEquation();
   $("src").focus();
   setStatus(message("mathjaxLoading"), "info");

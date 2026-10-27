@@ -63,7 +63,21 @@ textarea#src {
   font-size: 13px;
   line-height: 1.5;
 }
+textarea#macro-definitions {
+  width: 100%;
+  min-height: 64px;
+  resize: vertical;
+  padding: 7px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", monospace;
+  font-size: 11px;
+  line-height: 1.4;
+}
 textarea#src:focus,
+textarea#macro-definitions:focus,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
@@ -87,6 +101,22 @@ select:focus-visible {
 
 .controls { display: flex; flex-direction: column; gap: 8px; }
 .row { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+
+.macro-settings { display: flex; flex-direction: column; gap: 6px; }
+.macro-settings summary { cursor: pointer; font-weight: 600; }
+.macro-settings label { font-size: 11px; color: var(--muted); }
+.macro-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.macro-status { min-height: 16px; font-size: 11px; color: var(--muted); }
+#save-macros {
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+#save-macros:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
 .segmented { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .segmented label { position: relative; }
