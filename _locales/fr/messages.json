@@ -14,7 +14,7 @@
   "resolution": { "message": "Résolution" },
   "insertHint": { "message": "Ctrl+Entrée pour insérer" },
   "replaceHint": { "message": "Ctrl+Entrée pour remplacer" },
-  "githubProjectLink": { "message": "Projet sur GitHub" },
+  "githubProjectLink": { "message": "TeXbird" },
   "versionLabel": { "message": "Version $1" },
   "insertButton": { "message": "Insérer" },
   "replaceButton": { "message": "Remplacer" },

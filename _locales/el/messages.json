@@ -14,7 +14,7 @@
   "resolution": { "message": "Ανάλυση" },
   "insertHint": { "message": "Ctrl+Enter για εισαγωγή" },
   "replaceHint": { "message": "Ctrl+Enter για αντικατάσταση" },
-  "githubProjectLink": { "message": "Έργο στο GitHub" },
+  "githubProjectLink": { "message": "TeXbird" },
   "versionLabel": { "message": "Έκδοση $1" },
   "insertButton": { "message": "Εισαγωγή" },
   "replaceButton": { "message": "Αντικατάσταση" },
