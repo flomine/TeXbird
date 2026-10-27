@@ -21,9 +21,23 @@
           <label><input type="radio" name="mode" value="display" checked><span data-i18n="displayMode">Block</span></label>
           <label><input type="radio" name="mode" value="inline"><span data-i18n="inlineMode">Inline</span></label>
         </div>
-        <label class="inline-field"><span data-i18n="color">Color</span>
-          <input type="color" id="color" value="#000000">
-        </label>
+        <div class="color-control">
+          <div class="color-swatches" role="group" aria-label="Preset colors" data-i18n-aria-label="colorPalette">
+            <button type="button" class="color-swatch" data-color="#000000" style="--swatch-color:#000000" aria-label="Color #000000" aria-pressed="true"></button>
+            <button type="button" class="color-swatch" data-color="#FFFFFF" style="--swatch-color:#FFFFFF" aria-label="Color #FFFFFF" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#D32F2F" style="--swatch-color:#D32F2F" aria-label="Color #D32F2F" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#F57C00" style="--swatch-color:#F57C00" aria-label="Color #F57C00" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#FBC02D" style="--swatch-color:#FBC02D" aria-label="Color #FBC02D" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#388E3C" style="--swatch-color:#388E3C" aria-label="Color #388E3C" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#00897B" style="--swatch-color:#00897B" aria-label="Color #00897B" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#1976D2" style="--swatch-color:#1976D2" aria-label="Color #1976D2" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#5E35B1" style="--swatch-color:#5E35B1" aria-label="Color #5E35B1" aria-pressed="false"></button>
+            <button type="button" class="color-swatch" data-color="#C2185B" style="--swatch-color:#C2185B" aria-label="Color #C2185B" aria-pressed="false"></button>
+          </div>
+          <label class="inline-field" for="color"><span data-i18n="hexColor">Hex</span>
+            <input type="text" id="color" value="#000000" maxlength="7" pattern="#[0-9A-Fa-f]{6}" spellcheck="false" autocomplete="off" aria-label="Hex color">
+          </label>
+        </div>
       </div>
       <div class="row">
         <label class="inline-field"><span data-i18n="size">Size</span>
@@ -45,6 +59,10 @@
       <span id="insert-hint" class="hint" data-i18n="insertHint">Ctrl+Enter to insert</span>
       <button id="insert" class="primary" disabled data-i18n="insertButton">Insert</button>
     </div>
+
+    <footer class="popup-footer">
+      <a href="https://github.com/flomine/TeXbird" target="_blank" rel="noopener noreferrer" data-i18n="githubProjectLink">Project on GitHub</a>
+    </footer>
   </div>
 
   <script src="mj-config.js"></script>

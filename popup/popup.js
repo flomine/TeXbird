@@ -19,13 +19,16 @@ function localize() {
   for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
     el.setAttribute("aria-label", message(el.dataset.i18nAriaLabel));
   }
+  for (const swatch of document.querySelectorAll(".color-swatch")) {
+    swatch.setAttribute("aria-label", message("colorSwatch", swatch.dataset.color));
+  }
 }
 
 function opts() {
   return {
     latex: $("src").value,
     display: document.querySelector('input[name="mode"]:checked').value === "display",
-    color: $("color").value,
+    color: $("color").value.trim(),
     sizePx: parseInt($("size").value, 10) || 16,
     scale: parseInt($("scale").value, 10) || 3,
   };
@@ -37,10 +40,32 @@ function setStatus(msg, kind) {
   el.className = "status" + (kind === "info" ? " info" : "");
 }
 
+function updateColorSwatches() {
+  const selectedColor = $("color").value.trim().toLowerCase();
+  for (const swatch of document.querySelectorAll(".color-swatch")) {
+    swatch.setAttribute(
+      "aria-pressed",
+      String(swatch.dataset.color.toLowerCase() === selectedColor)
+    );
+  }
+}
+
 async function ensureMathJax() {
   if (mjReady) return;
   await MathJax.startup.promise;
   mjReady = true;
+}
+
+function applySvgColor(svg, color) {
+  const elements = [svg, ...svg.querySelectorAll("*")];
+  for (const element of elements) {
+    for (const attribute of ["fill", "stroke", "style"]) {
+      const value = element.getAttribute(attribute);
+      if (value?.includes("currentColor")) {
+        element.setAttribute(attribute, value.replace(/currentColor/g, color));
+      }
+    }
+  }
 }
 
 // --- Aperçu ---------------------------------------------------------------
@@ -51,6 +76,10 @@ async function updatePreview() {
   prev.textContent = "";
   setStatus("");
   $("insert").disabled = true;
+  if (!/^#[0-9a-f]{6}$/i.test(color)) {
+    setStatus(message("invalidColor"));
+    return;
+  }
   if (!latex.trim()) return;
 
   try {
@@ -77,6 +106,7 @@ async function updatePreview() {
     setStatus(message("noPreview"));
     return;
   }
+  applySvgColor(svg, color);
   // MathJax rend les erreurs de syntaxe en rouge dans le SVG ; on laisse
   // l'utilisateur les voir, mais on prévient et on autorise quand même l'insertion.
   if (svg.querySelector('[data-mml-node="merror"]')) {
@@ -106,8 +136,9 @@ async function svgToPng(svg, color, scale, cssW, cssH) {
   clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
   clone.setAttribute("width", cssW + "px");
   clone.setAttribute("height", cssH + "px");
-  // currentColor -> couleur choisie, gravée dans le SVG autonome.
+  // SVG images may not inherit currentColor from their former HTML container.
   clone.style.color = color;
+  applySvgColor(clone, color);
 
   const xml = new XMLSerializer().serializeToString(clone);
   const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
@@ -245,8 +276,19 @@ async function doInsert() {
 // --- Écouteurs ------------------------------------------------------------
 
 $("src").addEventListener("input", schedulePreview);
+$("color").addEventListener("input", () => {
+  updateColorSwatches();
+  updatePreview();
+});
+for (const swatch of document.querySelectorAll(".color-swatch")) {
+  swatch.addEventListener("click", () => {
+    $("color").value = swatch.dataset.color;
+    updateColorSwatches();
+    updatePreview();
+  });
+}
 for (const el of document.querySelectorAll(
-  'input[name="mode"], #color, #size, #scale'
+  'input[name="mode"], #size, #scale'
 )) {
   el.addEventListener("change", updatePreview);
 }
@@ -261,6 +303,7 @@ document.addEventListener("keydown", (e) => {
 // Démarrage (le script est en fin de body : le DOM est prêt).
 (async () => {
   localize();
+  updateColorSwatches();
   await loadSelectedEquation();
   $("src").focus();
   setStatus(message("mathjaxLoading"), "info");
