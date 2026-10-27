@@ -5,6 +5,7 @@
 const $ = (id) => document.getElementById(id);
 let mjReady = false;
 let previewTimer = null;
+let editingEquation = false;
 
 function message(key, ...substitutions) {
   return messenger.i18n.getMessage(key, substitutions.map(String));
@@ -140,6 +141,25 @@ async function getComposeTab() {
   return tabs && tabs[0];
 }
 
+async function loadSelectedEquation() {
+  const tab = await getComposeTab();
+  if (!tab) return;
+
+  try {
+    const response = await messenger.tabs.sendMessage(tab.id, {
+      type: "texbird-get-selected-equation",
+    });
+    if (response?.ok && typeof response.latex === "string") {
+      editingEquation = true;
+      $("src").value = response.latex;
+      $("insert-hint").textContent = message("replaceHint");
+      $("insert").textContent = message("replaceButton");
+    }
+  } catch (e) {
+    // The compose script may be unavailable in an already-open window.
+  }
+}
+
 async function insertIntoCompose(data) {
   const tab = await getComposeTab();
   if (!tab) return false;
@@ -149,11 +169,13 @@ async function insertIntoCompose(data) {
     const resp = await messenger.tabs.sendMessage(tab.id, {
       type: "texbird-insert",
       data,
+      replaceSelected: editingEquation,
     });
     if (resp && resp.ok) return true;
   } catch (e) {
     // Pas de compose script (fenêtre ouverte avant l'installation) -> repli.
   }
+  if (editingEquation) return false;
 
   // 2) Repli : on ajoute l'image en fin de corps via l'API compose.
   try {
@@ -239,6 +261,7 @@ document.addEventListener("keydown", (e) => {
 // Démarrage (le script est en fin de body : le DOM est prêt).
 (async () => {
   localize();
+  await loadSelectedEquation();
   $("src").focus();
   setStatus(message("mathjaxLoading"), "info");
   try {

@@ -16,8 +16,9 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - **Display** (block) or **inline** math.
 - Adjustable color, size and sharpness; live preview.
 - High-resolution PNG inserted **at the cursor** in the message body.
-- LaTeX source kept in `alt` / `data-latex` (accessibility + basis for future
-  re-editing).
+- Select a TeXbird equation, then open the TeXbird popup to edit its LaTeX
+  source and replace it in place.
+- LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
 - TeX packages available offline: `ams`, `color`, `cancel`, `physics`,
   `boldsymbol`, `mhchem`, `braket`.
 
@@ -60,8 +61,6 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
 ## Roadmap
 
-- Re-editing an equation (click the image → popup prefilled from `data-latex` →
-  in-place replacement).
 - Precise baseline alignment for inline mode.
 - Context menu + global keyboard shortcut.
 - Options page (defaults, custom macro preamble).

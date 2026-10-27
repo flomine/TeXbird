@@ -7,6 +7,12 @@
 (() => {
   if (window.__texbirdReady) return;
   window.__texbirdReady = true;
+  let selectedEquation = null;
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    selectedEquation = target?.closest('img[data-texbird="1"][data-latex]') || null;
+  }, true);
 
   function buildImg(data) {
     const img = document.createElement("img");
@@ -38,11 +44,36 @@
   }
 
   messenger.runtime.onMessage.addListener((message) => {
-    if (!message || message.type !== "texbird-insert") {
+    if (!message) {
       return false;
     }
+
+    if (message.type === "texbird-get-selected-equation") {
+      const latex = selectedEquation?.isConnected
+        ? selectedEquation.getAttribute("data-latex")
+        : null;
+      return Promise.resolve({ ok: true, latex });
+    }
+
+    if (message.type !== "texbird-insert") return false;
+
     try {
-      insertAtCaret(buildImg(message.data));
+      const image = buildImg(message.data);
+      if (message.replaceSelected) {
+        if (!selectedEquation?.isConnected) {
+          return Promise.resolve({ ok: false, error: "Selected equation is no longer available" });
+        }
+        selectedEquation.replaceWith(image);
+        selectedEquation = image;
+        const range = document.createRange();
+        range.setStartAfter(image);
+        range.collapse(true);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      } else {
+        insertAtCaret(image);
+      }
       return Promise.resolve({ ok: true });
     } catch (e) {
       return Promise.resolve({ ok: false, error: String(e) });

@@ -7,7 +7,7 @@
 #   make vendor     # fetch and verify the bundled MathJax file
 
 XPI      := texbird.xpi
-EXCLUDES := -x '.git/*' -x '*.xpi' -x 'Makefile' -x '.gitignore' -x 'web-ext-artifacts/*'
+EXCLUDES := -x '.git/*' -x '*.xpi' -x 'Makefile' -x '.gitignore' -x 'web-ext-artifacts/*' -x 'tools/*'
 MATHJAX_VERSION := 3.2.2
 MATHJAX_SHA256  := a4354ff94fd868aea0cc6eaaa79a57fda0588646fc46ee3700a349ee0a11cbe6
 NODE_IMAGE ?= node:22-alpine
