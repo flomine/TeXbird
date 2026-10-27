@@ -76,7 +76,8 @@ cd texbird
 zip -r -X ../texbird.xpi . -x '.git/*' '*.xpi' >/dev/null
 ```
 
-MathJax is vendored; see `THIRD-PARTY.md` to regenerate `mathjax/tex-svg.js`.
+Run `make vendor` to download and checksum-verify the pinned MathJax bundle;
+see `THIRD-PARTY.md` for its provenance and SHA-256.
 
 ## License
 
