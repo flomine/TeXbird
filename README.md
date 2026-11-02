@@ -2,7 +2,7 @@
 
 *LaTeX equations as images, right inside your Thunderbird emails — rendered entirely on your machine.*
 
-A Manifest V3 MailExtension for **Thunderbird 153+** that inserts LaTeX equations as
+A Manifest V3 MailExtension for **Thunderbird 128+** that inserts LaTeX equations as
 **inline PNG images** into your emails. Rendering is **100% local** via a bundled
 copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 
@@ -52,39 +52,38 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - Fallback: if the compose script isn't present (window opened too early), the
   popup appends the image to the end of the body via `compose.setComposeDetails`.
 
-## Known limitations (v0.1)
+## Known limitations (v0.2)
 
 - **Windows opened before installation**: reopen a compose window for cursor
   insertion (the fallback still works).
 - **Plain-text messages**: images can't be inserted; switch the message to HTML.
-- **Vertical alignment**: `vertical-align: middle` by default; precise baseline
-  alignment isn't computed yet.
 - **Sending**: send yourself a test to confirm Thunderbird embeds the image
   (data-URI → inline CID attachment) for recipients.
 
 ## Roadmap
 
-- ~~Edit a TeXbird equation in place from the popup.~~
-- ~~Define custom TeX macros and save them locally between sessions.~~
-- ~~Precise baseline alignment for inline mode.~~
+### 0.2 (current)
+- Validate custom macro definitions and report errors before saving.
+- Precise baseline alignment for inline mode.
+- Thunderbird 128+ support.
+
+### 0.3 — Everyday use
 - Context menu + global keyboard shortcut.
 - Options page for default mode, color, size, and resolution.
+- Quick insertion of recent equations and reusable templates.
+
+### 0.4 — Macros & export
 - Named macro profiles with JSON import and export.
-- ~~Validate custom macro definitions and report errors before rendering.~~
+- Export rendered equations as PNG or SVG files.
+
+### 1.0
 - Convert LaTeX typed in the message body (`$…$`, `$$…$$`, `\(…\)`, `\[…\]`)
   into images, with a confirmation list and a way to turn them back into text.
-- Quick insertion of recent equations and reusable templates.
-- Export rendered equations as PNG or SVG files.
-- Signed release on addons.thunderbird.net.
 
 ## Development
 
-Rebuild the `.xpi`:
-
-```bash
-cd texbird
-zip -r -X ../texbird.xpi . -x '.git/*' '*.xpi' >/dev/null
-```
+Run `make` to build `texbird.xpi` at the repository root (`make clean` removes
+it).
 
 Run `make vendor` to download and checksum-verify the pinned MathJax bundle;
 see `THIRD-PARTY.md` for its provenance and SHA-256.
