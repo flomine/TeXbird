@@ -36,5 +36,14 @@
   "generationFailure": { "message": "Generazione dell’immagine non riuscita: $1" },
   "insertFailure": { "message": "Impossibile inserire nel messaggio." },
   "contextMenuTitle": { "message": "Inserisci o modifica un’equazione LaTeX…" },
-  "commandOpenPopup": { "message": "Apri TeXbird nella finestra di composizione" }
+  "commandOpenPopup": { "message": "Apri TeXbird nella finestra di composizione" },
+  "optionsLink": { "message": "Opzioni" },
+  "defaultsHeading": { "message": "Impostazioni predefinite" },
+  "defaultsHelp": { "message": "Applicate a ogni apertura della finestra di TeXbird." },
+  "resetDefaults": { "message": "Ripristina" },
+  "optionsSaved": { "message": "Salvato." },
+  "optionsSaveFailed": { "message": "Impossibile salvare: $1" },
+  "shortcutHeading": { "message": "Scorciatoia da tastiera" },
+  "shortcutHelp": { "message": "$1 apre TeXbird in una finestra di composizione. Per modificarla: Componenti aggiuntivi e temi → icona a forma di ingranaggio → Gestisci scorciatoie estensioni." },
+  "shortcutUnset": { "message": "Nessuna scorciatoia assegnata. Impostala da Componenti aggiuntivi e temi → icona a forma di ingranaggio → Gestisci scorciatoie estensioni." }
 }

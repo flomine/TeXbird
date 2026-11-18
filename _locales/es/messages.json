@@ -36,5 +36,14 @@
   "generationFailure": { "message": "No se pudo generar la imagen: $1" },
   "insertFailure": { "message": "No se pudo insertar en el mensaje." },
   "contextMenuTitle": { "message": "Insertar o editar una ecuación LaTeX…" },
-  "commandOpenPopup": { "message": "Abrir TeXbird en la ventana de redacción" }
+  "commandOpenPopup": { "message": "Abrir TeXbird en la ventana de redacción" },
+  "optionsLink": { "message": "Opciones" },
+  "defaultsHeading": { "message": "Ajustes predeterminados" },
+  "defaultsHelp": { "message": "Se aplican cada vez que se abre la ventana de TeXbird." },
+  "resetDefaults": { "message": "Restablecer" },
+  "optionsSaved": { "message": "Guardado." },
+  "optionsSaveFailed": { "message": "No se pudo guardar: $1" },
+  "shortcutHeading": { "message": "Atajo de teclado" },
+  "shortcutHelp": { "message": "$1 abre TeXbird en una ventana de redacción. Para cambiarlo: Complementos y temas → icono de engranaje → Administrar atajos de extensiones." },
+  "shortcutUnset": { "message": "No hay ningún atajo asignado. Defínelo en Complementos y temas → icono de engranaje → Administrar atajos de extensiones." }
 }

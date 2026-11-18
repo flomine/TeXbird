@@ -36,5 +36,14 @@
   "generationFailure": { "message": "Image generation failed: $1" },
   "insertFailure": { "message": "Could not insert into the message." },
   "contextMenuTitle": { "message": "Insert or edit a LaTeX equation…" },
-  "commandOpenPopup": { "message": "Open TeXbird in the compose window" }
+  "commandOpenPopup": { "message": "Open TeXbird in the compose window" },
+  "optionsLink": { "message": "Options" },
+  "defaultsHeading": { "message": "Default settings" },
+  "defaultsHelp": { "message": "Applied each time the TeXbird popup opens." },
+  "resetDefaults": { "message": "Reset" },
+  "optionsSaved": { "message": "Saved." },
+  "optionsSaveFailed": { "message": "Could not save: $1" },
+  "shortcutHeading": { "message": "Keyboard shortcut" },
+  "shortcutHelp": { "message": "$1 opens TeXbird in a compose window. To change it: Add-ons and Themes → gear icon → Manage Extension Shortcuts." },
+  "shortcutUnset": { "message": "No shortcut assigned. Set one from Add-ons and Themes → gear icon → Manage Extension Shortcuts." }
 }

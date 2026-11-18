@@ -1,0 +1,63 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* TeXbird — Copyright (C) 2026 Franck (flomine) */
+:root {
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --border: #d9dce1;
+  --field-bg: #f6f7f9;
+  --accent: #2e7db0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e8e9ec;
+    --muted: #9aa0ab;
+    --border: #3a3d44;
+    --field-bg: #2a2d33;
+    --accent: #4ea3d8;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.wrap { max-width: 640px; padding: 8px 16px 16px; }
+
+section { padding: 12px 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+h2 { margin: 0 0 4px; font-size: 15px; }
+.help { margin: 0 0 10px; color: var(--muted); font-size: 12px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: max-content auto;
+  align-items: center;
+  justify-items: start;
+  gap: 8px 16px;
+}
+.choices { display: flex; gap: 16px; }
+
+input[type="number"], select, button {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font: inherit;
+}
+input[type="number"] { width: 64px; }
+input[type="color"] { width: 48px; height: 28px; padding: 0 2px; border: 1px solid var(--border); border-radius: 6px; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+.status { color: var(--muted); font-size: 12px; }

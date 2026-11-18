@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- TeXbird — Copyright (C) 2026 Franck (flomine) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="wrap">
+    <section>
+      <h2 data-i18n="defaultsHeading">Default settings</h2>
+      <p class="help" data-i18n="defaultsHelp">Used each time the TeXbird popup opens.</p>
+      <form id="defaults-form" class="grid">
+        <span data-i18n="typeLabel">Type</span>
+        <div class="choices">
+          <label><input type="radio" name="mode" value="display"> <span data-i18n="displayMode">Block</span></label>
+          <label><input type="radio" name="mode" value="inline"> <span data-i18n="inlineMode">Inline</span></label>
+        </div>
+
+        <label for="color" data-i18n="color">Color</label>
+        <input type="color" id="color">
+
+        <label for="size" data-i18n="size">Size</label>
+        <span><input type="number" id="size" min="8" max="72" step="1" required> px</span>
+
+        <label for="scale" data-i18n="resolution">Resolution</label>
+        <select id="scale">
+          <option value="2">×2</option>
+          <option value="3">×3</option>
+          <option value="4">×4</option>
+        </select>
+      </form>
+      <div class="actions">
+        <span id="defaults-status" class="status" aria-live="polite"></span>
+        <button id="reset-defaults" type="button" data-i18n="resetDefaults">Reset</button>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="shortcutHeading">Keyboard shortcut</h2>
+      <p id="shortcut-help" class="help"></p>
+    </section>
+  </main>
+
+  <script src="../common/settings.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

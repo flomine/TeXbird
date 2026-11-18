@@ -63,6 +63,30 @@ async function ensureMathJax() {
   mjReady = true;
 }
 
+// --- Réglages par défaut ------------------------------------------------------
+
+function setMode(display) {
+  const value = display ? "display" : "inline";
+  document.querySelector(`input[name="mode"][value="${value}"]`).checked = true;
+}
+
+function applyDefaults(defaults) {
+  setMode(defaults.mode === "display");
+  $("color").value = defaults.color;
+  $("size").value = defaults.size;
+  $("scale").value = String(defaults.scale);
+  updateColorSwatches();
+}
+
+async function loadSettings() {
+  try {
+    const settings = await loadTexbirdSettings();
+    applyDefaults(settings.defaults);
+  } catch (e) {
+    console.error("TeXbird : lecture des réglages impossible", e);
+  }
+}
+
 async function loadCustomMacros() {
   try {
     const stored = await messenger.storage.local.get("customMacros");
@@ -311,6 +335,9 @@ async function loadSelectedEquation() {
     if (response?.ok && typeof response.latex === "string") {
       editingEquation = true;
       $("src").value = response.latex;
+      if (response.mode === "display" || response.mode === "inline") {
+        setMode(response.mode === "display");
+      }
       $("insert-hint").textContent = message("replaceHint");
       $("insert").textContent = message("replaceButton");
     }
@@ -346,6 +373,7 @@ async function insertIntoCompose(data) {
     const imgHtml =
       `<img src="${data.src}" alt="${escapeHtml(data.alt)}" ` +
       `data-latex="${escapeHtml(data.latex)}" data-texbird="1" ` +
+      `data-mode="${data.mode}" ` +
       `width="${data.width}" height="${data.height}" style="vertical-align:middle">`;
     let body = details.body || "";
     if (/<\/body>/i.test(body)) {
@@ -398,6 +426,7 @@ async function doInsert() {
     height: cssH,
     alt: latex,
     latex,
+    mode: display ? "display" : "inline",
     vAlign: display ? "middle" : inlineVerticalAlign(svg, rect),
   };
 
@@ -432,6 +461,11 @@ for (const el of document.querySelectorAll(
   el.addEventListener("change", updatePreview);
 }
 $("insert").addEventListener("click", doInsert);
+$("open-options").addEventListener("click", async (e) => {
+  e.preventDefault();
+  await messenger.runtime.openOptionsPage();
+  window.close();
+});
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
     e.preventDefault();
@@ -442,7 +476,7 @@ document.addEventListener("keydown", (e) => {
 // Démarrage (le script est en fin de body : le DOM est prêt).
 (async () => {
   localize();
-  updateColorSwatches();
+  await loadSettings();
   await loadCustomMacros();
   await loadSelectedEquation();
   $("src").focus();

@@ -36,5 +36,14 @@
   "generationFailure": { "message": "Échec de la génération de l’image : $1" },
   "insertFailure": { "message": "Impossible d’insérer dans le message." },
   "contextMenuTitle": { "message": "Insérer ou modifier une équation LaTeX…" },
-  "commandOpenPopup": { "message": "Ouvrir TeXbird dans la fenêtre de rédaction" }
+  "commandOpenPopup": { "message": "Ouvrir TeXbird dans la fenêtre de rédaction" },
+  "optionsLink": { "message": "Options" },
+  "defaultsHeading": { "message": "Réglages par défaut" },
+  "defaultsHelp": { "message": "Appliqués à chaque ouverture de la fenêtre TeXbird." },
+  "resetDefaults": { "message": "Réinitialiser" },
+  "optionsSaved": { "message": "Enregistré." },
+  "optionsSaveFailed": { "message": "Échec de l’enregistrement : $1" },
+  "shortcutHeading": { "message": "Raccourci clavier" },
+  "shortcutHelp": { "message": "$1 ouvre TeXbird dans une fenêtre de rédaction. Pour le modifier : Modules complémentaires et thèmes → icône d’engrenage → Gérer les raccourcis d’extensions." },
+  "shortcutUnset": { "message": "Aucun raccourci défini. Définissez-en un dans Modules complémentaires et thèmes → icône d’engrenage → Gérer les raccourcis d’extensions." }
 }

@@ -21,6 +21,7 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
   source and replace it in place.
 - Open TeXbird from the compose toolbar, the message body's context menu, or
   the keyboard shortcut **Alt+Shift+L** (configurable).
+- Options page for the default type, color, size and resolution.
 - Define custom TeX macros and save them locally between sessions; invalid
   definitions are reported with their line before saving.
 - LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
@@ -53,6 +54,8 @@ opens it for editing. To change the shortcut: Add-ons and Themes → gear icon �
 
 - `popup/` — input + live preview. MathJax (`svg`, `fontCache: "none"`) produces a
   self-contained SVG (glyphs as paths), rasterized to PNG via `<canvas>`.
+- `options/` — options page (defaults, saved templates, history).
+- `common/settings.js` — settings shared by the popup and the options page.
 - `background.js` — registers the compose script and the context menu entry.
 - `compose-script.js` — injected into every compose window by `background.js`
   (`scripting.compose.registerScripts`). Receives the image and inserts it at the

@@ -24,6 +24,7 @@
     // On conserve la source LaTeX : accessibilité + ré-édition future possible.
     img.setAttribute("data-latex", data.latex || "");
     img.setAttribute("data-texbird", "1");
+    if (data.mode) img.setAttribute("data-mode", data.mode);
     if (data.width) img.setAttribute("width", data.width);
     if (data.height) img.setAttribute("height", data.height);
     img.style.verticalAlign = data.vAlign || "middle";
@@ -52,10 +53,10 @@
     }
 
     if (message.type === "texbird-get-selected-equation") {
-      const latex = selectedEquation?.isConnected
-        ? selectedEquation.getAttribute("data-latex")
-        : null;
-      return Promise.resolve({ ok: true, latex });
+      const connected = Boolean(selectedEquation?.isConnected);
+      const latex = connected ? selectedEquation.getAttribute("data-latex") : null;
+      const mode = connected ? selectedEquation.getAttribute("data-mode") : null;
+      return Promise.resolve({ ok: true, latex, mode });
     }
 
     if (message.type !== "texbird-insert") return false;

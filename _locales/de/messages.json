@@ -36,5 +36,14 @@
   "generationFailure": { "message": "Bild konnte nicht erstellt werden: $1" },
   "insertFailure": { "message": "Einfügen in die Nachricht nicht möglich." },
   "contextMenuTitle": { "message": "LaTeX-Formel einfügen oder bearbeiten…" },
-  "commandOpenPopup": { "message": "TeXbird im Verfassen-Fenster öffnen" }
+  "commandOpenPopup": { "message": "TeXbird im Verfassen-Fenster öffnen" },
+  "optionsLink": { "message": "Einstellungen" },
+  "defaultsHeading": { "message": "Standardeinstellungen" },
+  "defaultsHelp": { "message": "Werden bei jedem Öffnen des TeXbird-Fensters angewendet." },
+  "resetDefaults": { "message": "Zurücksetzen" },
+  "optionsSaved": { "message": "Gespeichert." },
+  "optionsSaveFailed": { "message": "Speichern fehlgeschlagen: $1" },
+  "shortcutHeading": { "message": "Tastenkürzel" },
+  "shortcutHelp": { "message": "$1 öffnet TeXbird in einem Verfassen-Fenster. Zum Ändern: Add-ons und Themes → Zahnrad-Symbol → Erweiterungs-Tastenkombinationen verwalten." },
+  "shortcutUnset": { "message": "Kein Tastenkürzel festgelegt. Legen Sie eines fest unter Add-ons und Themes → Zahnrad-Symbol → Erweiterungs-Tastenkombinationen verwalten." }
 }

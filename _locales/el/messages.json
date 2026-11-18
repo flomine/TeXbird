@@ -36,5 +36,14 @@
   "generationFailure": { "message": "Αποτυχία δημιουργίας εικόνας: $1" },
   "insertFailure": { "message": "Δεν ήταν δυνατή η εισαγωγή στο μήνυμα." },
   "contextMenuTitle": { "message": "Εισαγωγή ή επεξεργασία εξίσωσης LaTeX…" },
-  "commandOpenPopup": { "message": "Άνοιγμα του TeXbird στο παράθυρο σύνταξης" }
+  "commandOpenPopup": { "message": "Άνοιγμα του TeXbird στο παράθυρο σύνταξης" },
+  "optionsLink": { "message": "Επιλογές" },
+  "defaultsHeading": { "message": "Προεπιλεγμένες ρυθμίσεις" },
+  "defaultsHelp": { "message": "Εφαρμόζονται κάθε φορά που ανοίγει το παράθυρο του TeXbird." },
+  "resetDefaults": { "message": "Επαναφορά" },
+  "optionsSaved": { "message": "Αποθηκεύτηκε." },
+  "optionsSaveFailed": { "message": "Η αποθήκευση απέτυχε: $1" },
+  "shortcutHeading": { "message": "Συντόμευση πληκτρολογίου" },
+  "shortcutHelp": { "message": "Το $1 ανοίγει το TeXbird σε παράθυρο σύνταξης. Για αλλαγή: Πρόσθετα και θέματα → εικονίδιο γραναζιού → Διαχείριση συντομεύσεων επεκτάσεων." },
+  "shortcutUnset": { "message": "Δεν έχει οριστεί συντόμευση. Ορίστε μία από Πρόσθετα και θέματα → εικονίδιο γραναζιού → Διαχείριση συντομεύσεων επεκτάσεων." }
 }
