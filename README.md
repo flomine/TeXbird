@@ -94,6 +94,27 @@ is stored locally.
 - Named macro profiles with JSON import and export.
 - Export rendered equations as PNG or SVG files.
 
+### 0.5 — Better-looking emails
+- Center block equations on their own line.
+- Optional background color, so equations stay readable when the recipient
+  uses a dark theme.
+- Match the surrounding text's size and color for inline equations.
+- Show the size of the generated image before inserting.
+
+### 0.6 — Reliable editing
+- Store color, size and resolution on each equation, so editing restores them.
+- Make insertions undoable with Ctrl+Z.
+- Keep equations editable in saved drafts and in replies.
+- Offer to switch a plain-text message to HTML instead of failing.
+- Ask for confirmation before inserting an equation with LaTeX errors.
+- Restyle all equations of a message at once (color, size).
+
+### 0.7 — Quality & release
+- Automated tests for the popup and options page (mocked `messenger` API,
+  headless Firefox).
+- `make release` target: check version consistency and build the `.xpi` for
+  addons.thunderbird.net.
+
 ### 1.0
 - Convert LaTeX typed in the message body (`$…$`, `$$…$$`, `\(…\)`, `\[…\]`)
   into images, with a confirmation list and a way to turn them back into text.
