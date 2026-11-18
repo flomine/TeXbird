@@ -34,5 +34,7 @@
   "svgImageUnreadable": { "message": "SVG-Bild konnte nicht gelesen werden" },
   "generatingImage": { "message": "Bild wird erstellt…" },
   "generationFailure": { "message": "Bild konnte nicht erstellt werden: $1" },
-  "insertFailure": { "message": "Einfügen in die Nachricht nicht möglich." }
+  "insertFailure": { "message": "Einfügen in die Nachricht nicht möglich." },
+  "contextMenuTitle": { "message": "LaTeX-Formel einfügen oder bearbeiten…" },
+  "commandOpenPopup": { "message": "TeXbird im Verfassen-Fenster öffnen" }
 }

@@ -19,6 +19,8 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - High-resolution PNG inserted **at the cursor** in the message body.
 - Select a TeXbird equation, then open the TeXbird popup to edit its LaTeX
   source and replace it in place.
+- Open TeXbird from the compose toolbar, the message body's context menu, or
+  the keyboard shortcut **Alt+Shift+L** (configurable).
 - Define custom TeX macros and save them locally between sessions; invalid
   definitions are reported with their line before saving.
 - LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
@@ -42,10 +44,16 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
    sharpness.
 3. **Insert** (or `Ctrl+Enter`). The image is dropped at the cursor.
 
+You can also right-click in the message body → **Insert or edit a LaTeX
+equation…**, or press **Alt+Shift+L**. Right-clicking an existing equation
+opens it for editing. To change the shortcut: Add-ons and Themes → gear icon →
+**Manage Extension Shortcuts**.
+
 ## Architecture
 
 - `popup/` — input + live preview. MathJax (`svg`, `fontCache: "none"`) produces a
   self-contained SVG (glyphs as paths), rasterized to PNG via `<canvas>`.
+- `background.js` — registers the compose script and the context menu entry.
 - `compose-script.js` — injected into every compose window by `background.js`
   (`scripting.compose.registerScripts`). Receives the image and inserts it at the
   cursor.

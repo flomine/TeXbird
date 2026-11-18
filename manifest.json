@@ -20,7 +20,7 @@
     "48": "icons/icon-48.png",
     "64": "icons/icon-64.png"
   },
-  "permissions": ["compose", "scripting", "tabs", "storage"],
+  "permissions": ["compose", "scripting", "tabs", "storage", "menus"],
   "background": {
     "scripts": ["background.js"]
   },
@@ -32,6 +32,14 @@
       "19": "icons/icon-19.png",
       "32": "icons/icon-32.png",
       "38": "icons/icon-38.png"
+    }
+  },
+  "commands": {
+    "_execute_compose_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+L"
+      },
+      "description": "__MSG_commandOpenPopup__"
     }
   }
 }

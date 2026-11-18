@@ -9,10 +9,13 @@
   window.__texbirdReady = true;
   let selectedEquation = null;
 
-  document.addEventListener("click", (event) => {
+  // Clic gauche ou droit : le menu contextuel ouvre aussi le popup en mode édition.
+  function trackEquation(event) {
     const target = event.target instanceof Element ? event.target : null;
     selectedEquation = target?.closest('img[data-texbird="1"][data-latex]') || null;
-  }, true);
+  }
+  document.addEventListener("click", trackEquation, true);
+  document.addEventListener("contextmenu", trackEquation, true);
 
   function buildImg(data) {
     const img = document.createElement("img");

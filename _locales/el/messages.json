@@ -34,5 +34,7 @@
   "svgImageUnreadable": { "message": "Δεν ήταν δυνατή η ανάγνωση της εικόνας SVG" },
   "generatingImage": { "message": "Δημιουργία εικόνας…" },
   "generationFailure": { "message": "Αποτυχία δημιουργίας εικόνας: $1" },
-  "insertFailure": { "message": "Δεν ήταν δυνατή η εισαγωγή στο μήνυμα." }
+  "insertFailure": { "message": "Δεν ήταν δυνατή η εισαγωγή στο μήνυμα." },
+  "contextMenuTitle": { "message": "Εισαγωγή ή επεξεργασία εξίσωσης LaTeX…" },
+  "commandOpenPopup": { "message": "Άνοιγμα του TeXbird στο παράθυρο σύνταξης" }
 }

@@ -29,3 +29,32 @@ async function registerComposeScript() {
 registerComposeScript();
 messenger.runtime.onInstalled.addListener(registerComposeScript);
 messenger.runtime.onStartup.addListener(registerComposeScript);
+
+// --- Menu contextuel du corps du message -----------------------------------
+
+const MENU_ID = "texbird-open-popup";
+
+async function createMenus() {
+  try {
+    await messenger.menus.removeAll();
+    messenger.menus.create({
+      id: MENU_ID,
+      title: messenger.i18n.getMessage("contextMenuTitle"),
+      contexts: ["compose_body"],
+    });
+  } catch (e) {
+    console.error("TeXbird : échec de la création du menu contextuel", e);
+  }
+}
+
+// Le compose script mémorise l'équation sous le clic droit : le popup s'ouvre
+// alors en mode remplacement, comme après un clic gauche sur l'équation.
+messenger.menus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId !== MENU_ID) return;
+  // openPopup doit être appelé directement dans le gestionnaire (action utilisateur).
+  messenger.composeAction.openPopup(tab ? { windowId: tab.windowId } : undefined)
+    .catch((e) => console.error("TeXbird : impossible d'ouvrir le popup", e));
+});
+
+messenger.runtime.onInstalled.addListener(createMenus);
+messenger.runtime.onStartup.addListener(createMenus);
