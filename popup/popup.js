@@ -5,6 +5,7 @@
 const $ = (id) => document.getElementById(id);
 let mjReady = false;
 let previewTimer = null;
+let previewGeneration = 0;
 let editingEquation = false;
 let macroCheckTimer = null;
 let customMacros = "";
@@ -192,6 +193,9 @@ function applySvgColor(svg, color) {
 // --- Aperçu ---------------------------------------------------------------
 
 async function updatePreview() {
+  clearTimeout(previewTimer);
+  // Un rendu plus récent a pu démarrer pendant l'attente de MathJax.
+  const generation = ++previewGeneration;
   const { latex, display, color, sizePx } = opts();
   const prev = $("preview");
   prev.textContent = "";
@@ -209,6 +213,7 @@ async function updatePreview() {
     setStatus(message("mathjaxStartError", e));
     return;
   }
+  if (generation !== previewGeneration) return;
 
   let container;
   try {
