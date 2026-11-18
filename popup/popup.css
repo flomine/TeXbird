@@ -208,3 +208,29 @@ button.primary:disabled { opacity: 0.5; cursor: default; }
 
 /* MathJax : laisse l'équation s'afficher à la taille définie */
 mjx-container { margin: 0 !important; }
+
+/* Équations récentes et modèles */
+.src-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.quick-insert { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.quick-insert select {
+  max-width: 130px;
+  padding: 3px 4px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 12px;
+}
+.quick-insert select:disabled { opacity: 0.5; }
+.quick-insert option, .quick-insert optgroup { font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; }
+.icon-button {
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+.icon-button:disabled { opacity: 0.5; cursor: default; }

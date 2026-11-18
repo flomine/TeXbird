@@ -9,6 +9,8 @@ let previewGeneration = 0;
 let editingEquation = false;
 let macroCheckTimer = null;
 let customMacros = "";
+let recentEquations = [];
+let userTemplates = [];
 
 function message(key, ...substitutions) {
   return messenger.i18n.getMessage(key, substitutions.map(String));
@@ -21,6 +23,12 @@ function localize() {
   }
   for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
     el.setAttribute("aria-label", message(el.dataset.i18nAriaLabel));
+  }
+  for (const el of document.querySelectorAll("[data-i18n-label]")) {
+    el.setAttribute("label", message(el.dataset.i18nLabel));
+  }
+  for (const el of document.querySelectorAll("[data-i18n-title]")) {
+    el.setAttribute("title", message(el.dataset.i18nTitle));
   }
   $("version").textContent = message(
     "versionLabel",
@@ -63,7 +71,7 @@ async function ensureMathJax() {
   mjReady = true;
 }
 
-// --- Réglages par défaut ------------------------------------------------------
+// --- Réglages par défaut, équations récentes et modèles --------------------
 
 function setMode(display) {
   const value = display ? "display" : "inline";
@@ -78,12 +86,103 @@ function applyDefaults(defaults) {
   updateColorSwatches();
 }
 
+function fillOptions(parent, values) {
+  parent.replaceChildren(
+    ...values.map((latex, i) => {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = texbirdLabel(latex);
+      option.title = latex;
+      return option;
+    })
+  );
+}
+
+function renderRecent() {
+  const select = $("recent");
+  const placeholder = select.options[0];
+  fillOptions(select, recentEquations.map((e) => e.latex));
+  select.prepend(placeholder);
+  select.value = "";
+  select.disabled = recentEquations.length === 0;
+}
+
+function renderTemplates() {
+  fillOptions($("user-templates"), userTemplates);
+  $("user-templates").hidden = userTemplates.length === 0;
+  fillOptions($("builtin-templates"), TEXBIRD_BUILTIN_TEMPLATES);
+  $("templates").value = "";
+}
+
 async function loadSettings() {
   try {
     const settings = await loadTexbirdSettings();
     applyDefaults(settings.defaults);
+    recentEquations = settings.recent;
+    userTemplates = settings.templates;
   } catch (e) {
     console.error("TeXbird : lecture des réglages impossible", e);
+  }
+  renderRecent();
+  renderTemplates();
+}
+
+function useRecent() {
+  const entry = recentEquations[Number($("recent").value)];
+  $("recent").value = "";
+  if (!entry) return;
+  $("src").value = entry.latex;
+  setMode(entry.display);
+  $("src").focus();
+  updatePreview();
+}
+
+// Insère le modèle au curseur et place le curseur dans le premier « {} » vide.
+function useTemplate() {
+  const select = $("templates");
+  const option = select.selectedOptions[0];
+  select.value = "";
+  if (!option?.value) return;
+  const group = option.parentElement.id === "user-templates" ? userTemplates : TEXBIRD_BUILTIN_TEMPLATES;
+  const snippet = group[Number(option.value)];
+  if (!snippet) return;
+
+  const src = $("src");
+  const start = src.selectionStart;
+  src.setRangeText(snippet, start, src.selectionEnd, "end");
+  const hole = snippet.indexOf("{}");
+  if (hole >= 0) src.setSelectionRange(start + hole + 1, start + hole + 1);
+  src.focus();
+  updatePreview();
+}
+
+async function saveTemplate() {
+  const latex = $("src").value.trim();
+  if (!latex) return;
+  if (userTemplates.includes(latex) || TEXBIRD_BUILTIN_TEMPLATES.includes(latex)) {
+    setStatus(message("templateExists"), "info");
+    return;
+  }
+  const updated = [...userTemplates, latex];
+  try {
+    await messenger.storage.local.set({ templates: updated });
+    userTemplates = updated;
+    renderTemplates();
+    setStatus(message("templateSaved"), "info");
+  } catch (e) {
+    setStatus(message("templateSaveFailed", e));
+  }
+}
+
+async function rememberEquation(latex, display) {
+  const updated = [
+    { latex, display },
+    ...recentEquations.filter((e) => e.latex !== latex),
+  ].slice(0, TEXBIRD_MAX_RECENT);
+  try {
+    await messenger.storage.local.set({ recentEquations: updated });
+  } catch (e) {
+    console.error("TeXbird : historique non enregistré", e);
   }
 }
 
@@ -432,6 +531,7 @@ async function doInsert() {
 
   const ok = await insertIntoCompose(data);
   if (ok) {
+    await rememberEquation(latex, display);
     window.close();
   } else {
     setStatus(message("insertFailure"));
@@ -461,6 +561,9 @@ for (const el of document.querySelectorAll(
   el.addEventListener("change", updatePreview);
 }
 $("insert").addEventListener("click", doInsert);
+$("recent").addEventListener("change", useRecent);
+$("templates").addEventListener("change", useTemplate);
+$("save-template").addEventListener("click", saveTemplate);
 $("open-options").addEventListener("click", async (e) => {
   e.preventDefault();
   await messenger.runtime.openOptionsPage();

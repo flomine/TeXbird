@@ -32,7 +32,7 @@ section { padding: 12px 0; border-bottom: 1px solid var(--border); }
 section:last-child { border-bottom: none; }
 
 h2 { margin: 0 0 4px; font-size: 15px; }
-.help { margin: 0 0 10px; color: var(--muted); font-size: 12px; }
+.help, .empty { margin: 0 0 10px; color: var(--muted); font-size: 12px; }
 
 .grid {
   display: grid;
@@ -61,3 +61,18 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 
 .actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
 .status { color: var(--muted); font-size: 12px; }
+
+.item-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.item-list li { display: flex; align-items: center; gap: 8px; }
+.item-list code {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

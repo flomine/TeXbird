@@ -9,7 +9,21 @@
 </head>
 <body>
   <div class="wrap">
-    <label class="field-label" for="src"><span data-i18n="latexEquation">LaTeX equation</span></label>
+    <div class="src-header">
+      <label class="field-label" for="src"><span data-i18n="latexEquation">LaTeX equation</span></label>
+      <div class="quick-insert">
+        <select id="recent" aria-label="Recent equations" data-i18n-aria-label="recentEquations" disabled>
+          <option value="" data-i18n="recentEquations">Recent</option>
+        </select>
+        <select id="templates" aria-label="Templates" data-i18n-aria-label="templates">
+          <option value="" data-i18n="templates">Templates</option>
+          <optgroup id="user-templates" label="My templates" data-i18n-label="userTemplates" hidden></optgroup>
+          <optgroup id="builtin-templates" label="Built-in" data-i18n-label="builtinTemplates"></optgroup>
+        </select>
+        <button id="save-template" type="button" class="icon-button" title="Save as template"
+          aria-label="Save as template" data-i18n-title="saveTemplate" data-i18n-aria-label="saveTemplate">☆</button>
+      </div>
+    </div>
     <textarea id="src" spellcheck="false" rows="3"
       placeholder="\frac{\partial u}{\partial t} + (u\cdot\nabla)u = -\frac{1}{\rho}\nabla p + \nu\nabla^2 u"></textarea>
 

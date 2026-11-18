@@ -3,6 +3,7 @@
 "use strict";
 
 const $ = (id) => document.getElementById(id);
+let templates = [];
 let statusTimer = null;
 
 function message(key, ...substitutions) {
@@ -60,6 +61,52 @@ async function resetDefaults() {
   }
 }
 
+// --- Modèles ------------------------------------------------------------------
+
+function renderTemplates() {
+  $("no-templates").hidden = templates.length > 0;
+  $("template-list").replaceChildren(
+    ...templates.map((latex, i) => {
+      const item = document.createElement("li");
+      const code = document.createElement("code");
+      code.textContent = latex;
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.textContent = message("deleteTemplate");
+      remove.addEventListener("click", () => deleteTemplate(i));
+      item.append(code, remove);
+      return item;
+    })
+  );
+}
+
+async function deleteTemplate(index) {
+  const updated = templates.filter((_, i) => i !== index);
+  try {
+    await messenger.storage.local.set({ templates: updated });
+    templates = updated;
+    renderTemplates();
+  } catch (e) {
+    console.error("TeXbird : suppression du modèle impossible", e);
+  }
+}
+
+// --- Historique -------------------------------------------------------------
+
+function renderRecentCount(count) {
+  $("recent-count").textContent = message("recentCount", count);
+  $("clear-recent").disabled = count === 0;
+}
+
+async function clearRecent() {
+  try {
+    await messenger.storage.local.remove("recentEquations");
+    renderRecentCount(0);
+  } catch (e) {
+    console.error("TeXbird : effacement de l'historique impossible", e);
+  }
+}
+
 // --- Raccourci clavier --------------------------------------------------------
 
 async function showShortcut() {
@@ -82,8 +129,12 @@ async function showShortcut() {
   showShortcut();
   const settings = await loadTexbirdSettings();
   showDefaults(settings.defaults);
+  templates = settings.templates;
+  renderTemplates();
+  renderRecentCount(settings.recent.length);
 
   $("defaults-form").addEventListener("change", saveDefaults);
   $("defaults-form").addEventListener("submit", (e) => e.preventDefault());
   $("reset-defaults").addEventListener("click", resetDefaults);
+  $("clear-recent").addEventListener("click", clearRecent);
 })();

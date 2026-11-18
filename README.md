@@ -22,6 +22,7 @@ copy of MathJax: no LaTeX installation, no external process, no Experiment API.
 - Open TeXbird from the compose toolbar, the message body's context menu, or
   the keyboard shortcut **Alt+Shift+L** (configurable).
 - Options page for the default type, color, size and resolution.
+- Reuse your recent equations, or insert built-in and saved templates.
 - Define custom TeX macros and save them locally between sessions; invalid
   definitions are reported with their line before saving.
 - LaTeX source kept in `alt` / `data-latex` for accessibility and re-editing.
@@ -49,6 +50,12 @@ You can also right-click in the message body → **Insert or edit a LaTeX
 equation…**, or press **Alt+Shift+L**. Right-clicking an existing equation
 opens it for editing. To change the shortcut: Add-ons and Themes → gear icon →
 **Manage Extension Shortcuts**.
+
+Above the editor, **Recent** reloads one of your last 10 equations and
+**Templates** inserts a snippet at the cursor; **☆** saves the current equation
+as a template. Defaults, saved templates and the history are managed from the
+**Options** link in the popup footer (or the add-on's preferences). Everything
+is stored locally.
 
 ## Architecture
 
