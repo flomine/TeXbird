@@ -70,7 +70,7 @@ is stored locally.
 - Fallback: if the compose script isn't present (window opened too early), the
   popup appends the image to the end of the body via `compose.setComposeDetails`.
 
-## Known limitations (v0.2)
+## Known limitations (v0.3)
 
 - **Windows opened before installation**: reopen a compose window for cursor
   insertion (the fallback still works).
@@ -80,12 +80,12 @@ is stored locally.
 
 ## Roadmap
 
-### 0.2 (current)
+### 0.2
 - Validate custom macro definitions and report errors before saving.
 - Precise baseline alignment for inline mode.
 - Thunderbird 128+ support.
 
-### 0.3 — Everyday use
+### 0.3 — Everyday use (current)
 - Context menu + global keyboard shortcut.
 - Options page for default mode, color, size, and resolution.
 - Quick insertion of recent equations and reusable templates.
